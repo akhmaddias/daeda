@@ -16,7 +16,7 @@
 
       <div id="navbarBasicExample" :class="{'navbar-menu': true, 'is-active': isBurgerActive}">
         <div class="navbar-start">
-          <a class="navbar-item" href="#/about">
+          <a class="navbar-item" href="#/about" @click="toggleBurger()">
             О нас
           </a>
           <div class="navbar-item has-dropdown is-hoverable">
@@ -24,22 +24,22 @@
                 Меню
             </div>
             <div class="navbar-dropdown">
-              <a class="navbar-item" href="#/menu">
+              <a class="navbar-item" href="#/menu" @click="toggleBurger()">
                 На сегодня
               </a>
-              <a class="navbar-item" href="#/menu-week">
+              <a class="navbar-item" href="#/menu-week" @click="toggleBurger()">
                 На неделю
               </a>
             </div>
           </div>
-          <a class="navbar-item" href="#/delivery">
+          <a class="navbar-item" href="#/delivery" @click="toggleBurger()">
             Доставка
           </a>
-          <a class="navbar-item" href='#/contacts'>
+          <a class="navbar-item" href="#/contacts" @click="toggleBurger()">
             Контакты
           </a>
         </div>
-        <div v-if="!isTablet" class="navbar-end">
+        <div v-if="!isTablet" class="navbar-end" @click="toggleBurger()">
           <div class="navbar-item">
             <a class="has-text-primary" href="#/cart">
               <span style="font-size: 1.5rem; font-weight: bold">{{ totalPrice }}</span>
