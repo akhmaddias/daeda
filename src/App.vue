@@ -52,7 +52,7 @@
       </div>
     </nav>
     <router-view style="margin-bottom: 48px"></router-view>
-    <div v-if="isTablet" class="sticky-cart">
+    <div v-if="isTablet && currentRouteName !== 'Cart'" class="sticky-cart">
       <a href="/cart">
         <span>
           Перейти в корзину
@@ -93,6 +93,9 @@ export default {
     ...mapState('cart', ['totalPrice']),
     isTablet () {
       return this.window.width < 1024
+    },
+    currentRouteName() {
+        return this.$route.name;
     }
   },
   methods: {
