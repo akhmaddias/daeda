@@ -16,28 +16,28 @@
 
       <div id="navbarBasicExample" :class="{'navbar-menu': true, 'is-active': isBurgerActive}">
         <div class="navbar-start">
-          <a class="navbar-item" href="#/about" @click="toggleBurger()">
+          <router-link class="navbar-item" to="/about" @click="toggleBurger()">
             О нас
-          </a>
+          </router-link>
           <div class="navbar-item has-dropdown is-hoverable">
             <div class="navbar-link">
                 Меню
             </div>
             <div class="navbar-dropdown">
-              <a class="navbar-item" href="#/menu" @click="toggleBurger()">
+              <router-link class="navbar-item" to="/menu" @click="toggleBurger()">
                 На сегодня
-              </a>
-              <a class="navbar-item" href="#/menu-week" @click="toggleBurger()">
+              </router-link>
+              <router-link class="navbar-item" to="/menu-week" @click="toggleBurger()">
                 На неделю
-              </a>
+              </router-link>
             </div>
           </div>
-          <a class="navbar-item" href="#/delivery" @click="toggleBurger()">
+          <router-link class="navbar-item" to="/delivery" @click="toggleBurger()">
             Доставка
-          </a>
-          <a class="navbar-item" href="#/contacts" @click="toggleBurger()">
+          </router-link>
+          <router-link class="navbar-item" to="/contacts" @click="toggleBurger()">
             Контакты
-          </a>
+          </router-link>
         </div>
         <div v-if="!isTablet" class="navbar-end" @click="toggleBurger()">
           <div class="navbar-item">
