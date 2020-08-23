@@ -224,6 +224,7 @@ function getInitialData () {
     activeCategory: 'Первые блюда',
     categories: ["Салаты и закуски", "Первые блюда", "Вторые блюда", "Гарниры", "Выпечка", "Напитки на разлив"],
     isModalActive: false,
+    originalName: null,
     changingItem: getChangingItemFields(),
     changingMenu: [],
     menu: [],
@@ -306,15 +307,22 @@ export default {
       this.isModalActive = true
       this.fileName = null
       if (item) {
+        this.originalName = item.name
         this.changingItem = { ...item }
       }
     },
     closeModal () {
+      this.originalName = null
       this.changingItem = getChangingItemFields()
       this.isModalActive = false
     },
     changeItem () {
-      let index = this.changingMenu.findIndex(i => i.name === this.changingItem.name)
+      let index
+      if (this.originalName) {
+        index = this.changingMenu.findIndex(i => i.name === this.originalName)
+        this.deleteItem({name: this.originalName})
+      }
+      index = this.changingMenu.findIndex(i => i.name === this.changingItem.name)
       this.changingItem.priceHalf = this.changingItem.priceHalf || null
       this.changingItem.category = this.activeCategory
       if (index > -1) {
