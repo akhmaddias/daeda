@@ -14,6 +14,7 @@ import MenuWeek from '@/components/menuWeek'
 Vue.use(Router)
 
 const router = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
