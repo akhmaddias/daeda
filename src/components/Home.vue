@@ -6,12 +6,12 @@
         <div class="menu-links">
           <h2 class="title is-5 has-text-primary">Перейти к меню:</h2>
           <div>
-            <router-link class="button is-rounded is-primary" to="/menu">
+            <a class="button is-rounded is-primary" href="#/menu">
               На сегодня
-            </router-link>
-            <router-link class="button is-rounded is-primary" to="/menu-week">
+            </a>
+            <a class="button is-rounded is-primary" href="#/menu-week">
               На неделю
-            </router-link>
+            </a>
           </div>
         </div>
       </div>
