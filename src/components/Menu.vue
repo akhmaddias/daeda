@@ -36,10 +36,10 @@
               </div>
             </div>
           </div>
-          <div v-else class="card-content">
+          <div v-else class="card-content" style="padding: 10px 0 0 0">
             <div class="media">
               <div class="media-left">
-                <figure class="image is-128x128">
+                <figure style="width:144px; height: 144px" class="image is-1by1">
                   <img :src="item.image">
                 </figure>
               </div>
