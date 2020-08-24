@@ -5,11 +5,11 @@
         <table class="table is-striped is-narrow is-hoverable is-fullwidth">
           <thead>
             <tr>
-              <th width="250px">Название</th>
-              <th width="90px">Цена (тг)</th>
-              <th width="105px">Количество</th>
+              <th>Название</th>
+              <th>Цена</th>
+              <th>Количество</th>
               <th></th>
-              <th width="95px">Итого (тг)</th>
+              <th>Итого</th>
             </tr>
           </thead>
           <tfoot>
@@ -32,15 +32,15 @@
                 <div class="quantity">
                   <span class="has-text-link">
                     {{ item.quantity }}
-                    <a style="margin-left: 20px" @click="decreaseQuantity(item)">-</a>
+                    <a style="margin-left: 10px" @click="decreaseQuantity(item)">-</a>
                     <a style="margin-left: 10px" @click="increaseQuantity(item)">+</a>
                   </span>
                 </div>
               </td>
               <td>
-                <button class="button is-danger is-small" @click="removeFromCart(item)">
-                  Удалить
-                </button>
+                <span @click="removeFromCart(item)" class="icon has-text-danger">
+                  <fa-icon :icon="['fas', 'trash']" />
+                </span>
               </td>
               <td>{{ item.price * item.quantity }}</td>
             </tr>
@@ -65,29 +65,27 @@
             <table class="table is-striped is-narrow is-hoverable is-fullwidth">
               <thead>
                 <tr>
-                  <th></th>
                   <th>Название</th>
-                  <th>Цена (тг)</th>
+                  <th>Цена</th>
                   <th>Количество</th>
-                  <th>Итого (тг)</th>
+                  <th>Итого</th>
                 </tr>
               </thead>
               <tfoot>
                 <tr>
-                  <th colspan="4">
+                  <th colspan="3">
                   </th>
                   <th>{{ totalPrice }}</th>
                 </tr>
               </tfoot>
               <tbody>
-                <tr v-for="(item, index) in inCart"
+                <tr v-for="item in inCart"
                     :key="item.name"
                     :value="item">
-                  <th>{{ index + 1 }}</th>
-                  <td><div style="width: 200px">{{ item.name }}</div></td>
-                  <td><div style="width: 100px">{{ item.price }}</div></td>
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.price }}</td>
                   <td>{{ item.quantity }}</td>
-                  <td><div style="width: 100px">{{ item.price * item.quantity }}</div></td>
+                  <td>{{ item.price * item.quantity }}</td>
                 </tr>
               </tbody>
             </table>

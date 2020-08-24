@@ -52,8 +52,8 @@
       </div>
     </nav>
     <router-view style="margin-bottom: 48px"></router-view>
-    <div v-if="isTablet && currentRouteName !== 'Cart'" class="sticky-cart">
-      <a href="/cart">
+    <div v-if="isTablet && currentRouteName !== 'Cart' && totalPrice > 0" class="sticky-cart">
+      <a href="#/cart">
         <span>
           Перейти в корзину
         </span>
