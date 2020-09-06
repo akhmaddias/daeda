@@ -62,10 +62,31 @@ export default {
   },
   computed: {
     selectedMenu () {
-      return this.menu.filter(i => i.category === this.activeCategory)
+      return this.menu.filter(i => i.category === this.activeCategory && this.isItemActiveOnday(i))
     }
   },
   methods: {
+    isItemActiveOnday (item) {
+      let romanDay
+      switch (this.activeDay) {
+        case "Понедельник":
+          romanDay = "monday"
+          break
+        case "Вторник":
+          romanDay = "tuesday"
+          break
+        case "Среда":
+          romanDay = "wednesday"
+          break
+        case "Четверг":
+          romanDay = "thursday"
+          break
+        case "Пятница":
+          romanDay = "friday"
+          break
+      }
+      return item[romanDay]
+    },
     isDayActive (val) {
       return this.activeDay === val
     },
