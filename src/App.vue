@@ -19,25 +19,28 @@
           <a class="navbar-item" href="#/about" @click="toggleBurger()">
             О нас
           </a>
-          <div class="navbar-item has-dropdown is-hoverable">
-            <div class="navbar-link">
-                Меню
-            </div>
-            <div class="navbar-dropdown">
-              <a class="navbar-item" href="#/menu" @click="toggleBurger()">
-                На сегодня
-              </a>
-              <a class="navbar-item" href="#/menu-week" @click="toggleBurger()">
-                На неделю
-              </a>
-            </div>
-          </div>
+          <a class="navbar-item" href="#/menu" @click="toggleBurger()">
+            На сегодня
+          </a>
           <a class="navbar-item" href="#/delivery" @click="toggleBurger()">
             Доставка
           </a>
           <a class="navbar-item" href="#/contacts" @click="toggleBurger()">
             Контакты
           </a>
+          <a class="navbar-item" href="#/menu-week" @click="toggleBurger()">
+            Для корпоративных клиентов
+          </a>
+          <div class="navbar-item">
+            <a href="tel:+77085293662" style="display: flex">
+              <span class="icon">
+                <fa-icon :icon="['fas', 'phone']" />
+              </span>
+              <span>
+                +7 708 529 3662
+              </span>
+            </a>
+          </div>
         </div>
         <div v-if="!isTablet" class="navbar-end" @click="toggleBurger()">
           <div class="navbar-item">
