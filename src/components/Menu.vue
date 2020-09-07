@@ -18,7 +18,7 @@
         <div class="card">
           <div v-if="!isScreenWidthMobile" class="card-image">
             <figure class="image is-1by1">
-              <img :src="item.image" alt="Фотографии нету">
+              <img :src="substituteImage(item.image)" alt="Фотографии нету">
             </figure>
           </div>
           <div v-if="!isScreenWidthMobile" class="card-content">
@@ -124,6 +124,9 @@ export default {
       'removeFromCart',
       'changeItemQuantity'
     ]),
+    substituteImage (link) {
+      return link || 'https://firebasestorage.googleapis.com/v0/b/canteen-581c0.appspot.com/o/no%20img.jpg?alt=media&token=7b5ca53d-df3d-4318-881b-a5918c90e300'
+    },
     isCategoryActive (val) {
       if (this.activeCategory === val) {
         return true
