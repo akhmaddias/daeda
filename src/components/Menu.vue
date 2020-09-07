@@ -112,7 +112,7 @@ export default {
       'inCart'
     ]),
     availableItems () {
-      return this.itemsOptions.filter(i => i.isAvailableToday && i.category === this.activeCategory)
+      return this.itemsOptions.filter(i => this.isItemAvailableToday(i) && i.category === this.activeCategory)
     },
     isScreenWidthMobile () {
       return window.screen.width < 768
@@ -124,6 +124,15 @@ export default {
       'removeFromCart',
       'changeItemQuantity'
     ]),
+    isItemAvailableToday (item) {
+      let days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']
+      let now = new Date()
+      let day = now.getDay()
+      if (day > 5) {
+        day = 5
+      }
+      return item[days[day - 1]]
+    },
     substituteImage (link) {
       return link || 'https://firebasestorage.googleapis.com/v0/b/canteen-581c0.appspot.com/o/no%20img.jpg?alt=media&token=7b5ca53d-df3d-4318-881b-a5918c90e300'
     },
