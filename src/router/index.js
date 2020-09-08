@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Home from '@/components/Home'
 import Cart from '@/components/Cart'
 import Menu from '@/components/Menu'
 import Admin from '@/components/Admin'
@@ -17,7 +16,7 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      component: Home
+      component: Menu
     },
     {
       path: '/cart',
