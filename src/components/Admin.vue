@@ -36,7 +36,7 @@
       class="table is-striped is-bordered is-narrow is-hoverable"
       v-if="menu.length > 0 && isToDayOrWeekActive('today')">
       <thead>
-        <tr><th>Название</th><th>Цена (тг)</th><th>Сегодня</th><th></th></tr>
+        <tr><th>Название</th><th>Цена (тг)</th><th></th></tr>
       </thead>
       <tfoot>
         <tr>
@@ -54,11 +54,6 @@
             :value="item">
           <td>{{ item.name }}</td>
           <td>{{ displayPrice(item) }}</td>
-          <td style="text-align: center">
-            <label class="checkbox">
-              <input v-model="item.isAvailableToday" type="checkbox" :name="item.name">
-            </label>
-          </td>
           <td style="text-align: center">
             <div class="table-buttons">
               <button class="button is-info is-small" @click="openModal(item)">
@@ -150,14 +145,6 @@
             </label>
           </div>
           <div class="field">
-            <label class="label">Доступно сегодня</label>
-            <div class="control">
-              <label style="margin: 0 15px" class="checkbox">
-                <input v-model="changingItem.isAvailableToday" type="checkbox">
-              </label>
-            </div>
-          </div>
-          <div class="field">
             <label class="label">Доступен на недели</label>
             <div class="control">
               <label style="margin: 0 15px" class="checkbox">
@@ -206,7 +193,6 @@ function getChangingItemFields () {
     priceFull: 0,
     priceHalf: null,
     image: null,
-    isAvailableToday: true,
     monday: true,
     tuesday: true,
     wednesday: true,
