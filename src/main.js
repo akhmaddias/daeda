@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import * as firebase from './firebase'
+import { userAuth } from './firebase'
 import { rtdbPlugin } from 'vuefire'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -18,7 +18,7 @@ Vue.component('fa-icon', FontAwesomeIcon)
 
 Vue.use(rtdbPlugin)
 
-firebase.userAuth.onAuthStateChanged(user => {
+userAuth.onAuthStateChanged(user => {
   store.dispatch('user/fetchUser', user);
 });
 

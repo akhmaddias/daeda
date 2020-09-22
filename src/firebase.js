@@ -1,6 +1,10 @@
-import { initializeApp, auth, functions } from 'firebase'
+import firebase from 'firebase/app';
+import 'firebase/functions'
+import 'firebase/auth'
+import 'firebase/database'
+import 'firebase/storage'
 
-const app = initializeApp({
+const app = firebase.initializeApp({
   apiKey: "AIzaSyA_UID1hOyzJ3VmW-Yb4gfKJDlcJfTM3VI",
   authDomain: "canteen-581c0.firebaseapp.com",
   databaseURL: "https://canteen-581c0.firebaseio.com",
@@ -11,7 +15,8 @@ const app = initializeApp({
   measurementId: "G-M2RQ95063N"
 })
 
-export const userAuth = auth()
+export const userAuth = firebase.auth()
 export const db = app.database()
-export const firebaseFuncs = functions()
+export const firebaseFuncs = firebase.functions()
 export const menuRef = db.ref('menu')
+export const storage = firebase.storage()

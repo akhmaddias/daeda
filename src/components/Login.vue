@@ -24,8 +24,7 @@
 </template>
 
 <script>
-import firebase from "firebase";
-
+import { userAuth } from '@/firebase.js'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -50,8 +49,7 @@ export default {
   },
   methods: {
     submit() {
-      firebase
-        .auth()
+      userAuth
         .signInWithEmailAndPassword(this.form.email, this.form.password)
         .then(this.$router.replace({ name: "Admin" }))
         .catch(err => {

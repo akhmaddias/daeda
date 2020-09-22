@@ -196,9 +196,8 @@
 </template>
 
 <script>
-import { menuRef } from '@/firebase.js'
+import { menuRef, storage, db } from '@/firebase.js'
 import { mapGetters } from 'vuex'
-import firebase from 'firebase'
 
 function getChangingItemFields () {
   return {
@@ -264,9 +263,7 @@ export default {
       }
     },
     dbSaveCategory () {
-      firebase
-        .database()
-        .ref('menu')
+      db.ref('menu')
         .set(this.changingMenu)
         .then(this.notifySuccess)
     },
@@ -292,7 +289,6 @@ export default {
       this.isLoading = true
       this.fileName = $event.target.files[0].name
       // Create a reference to the file we want to download
-      const storage = firebase.storage();
       const pathReference = storage.ref(this.fileName);
       pathReference.put($event.target.files[0])
         .then(() => {
