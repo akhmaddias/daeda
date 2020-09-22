@@ -119,9 +119,13 @@
                 <input v-model="contactInfo.extraInfo" class="input" type="text" width="200" placeholder="Дополнительная информация">
               </div>
             </div>
+            <div v-if="!contactInfo.telephone" class="notification is-warning">
+              Укажите номер телефона
+            </div>
           </section>
           <footer class="modal-card-foot">
             <button
+              :disabled="!contactInfo.telephone"
               :class="{'button': true, 'is-success': true, 'is-loading': isLoading}"
               @click="placeOrder()">Заказать</button>
             <button class="button is-danger" @click="closeModal()">Отменить</button>
