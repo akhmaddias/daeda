@@ -1,6 +1,9 @@
 <template>
   <div :class="{'container': true, 'is-fluid': !isScreenWidthMobile}">
-    <h1 style="width: 262px; margin: 2rem auto" class="title has-text-primary">Меню на сегодня</h1>
+    <div style="margin: 2rem auto">
+      <a class="button is-small" :class="{'is-primary': dayCount === 0}" @click="handleDaySwitch(0)">На сегодня</a>
+      <a class="button is-small" :class="{'is-primary': dayCount === 1}" @click="handleDaySwitch(1)">На завтра</a>
+      </div>
     <div v-if="menu" class="tabs is-boxed is-small">
       <ul>
         <li v-for="category in categories"
@@ -111,6 +114,9 @@ export default {
     ...mapState('cart', [
       'inCart'
     ]),
+    ...mapState('menu', [
+      'dayCount'
+    ]),
     availableItems () {
       return this.itemsOptions.filter(i => this.isItemAvailableToday(i) && i.category === this.activeCategory)
     },
@@ -122,8 +128,18 @@ export default {
     ...mapMutations('cart', [
       'addToCart',
       'removeFromCart',
-      'changeItemQuantity'
+      'changeItemQuantity',
+      'resetCart'
     ]),
+    ...mapMutations('menu', [
+      'setDayCount'
+    ]),
+    handleDaySwitch (day) {
+      if (this.dayCount !== day) {
+        this.resetCart()
+        this.setDayCount(day)
+      }
+    },
     isItemAvailableToday (item) {
       let days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']
       let now = new Date()
@@ -131,7 +147,7 @@ export default {
       if (day > 5) {
         day = 5
       }
-      return item[days[day - 1]]
+      return item[days[day - 1 + this.dayCount]]
     },
     substituteImage (link) {
       return link || 'https://firebasestorage.googleapis.com/v0/b/canteen-581c0.appspot.com/o/no%20img.jpg?alt=media&token=7b5ca53d-df3d-4318-881b-a5918c90e300'

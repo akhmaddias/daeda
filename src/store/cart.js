@@ -16,6 +16,9 @@ export default {
   namespaced: true,
   state: getInitialState,
   mutations: {
+    resetCart (state) {
+      state.inCart = []
+    },
     addToCart (state, item) {
       state.inCart.push(item)
       state.totalPrice = calculateTotalPrice(state.inCart)

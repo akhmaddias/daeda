@@ -20,7 +20,7 @@
             О нас
           </a>
           <a class="navbar-item" href="#/menu" @click="toggleBurger()">
-            На сегодня
+            Меню
           </a>
           <a class="navbar-item" href="#/delivery" @click="toggleBurger()">
             Доставка
@@ -76,7 +76,6 @@
           <button class="delete" aria-label="close" @click="() => {isModalActive=false}"></button>
         </div>
       </div>
-      
     </div>
   </div>
 </template>
