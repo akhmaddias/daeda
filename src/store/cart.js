@@ -18,6 +18,7 @@ export default {
   mutations: {
     resetCart (state) {
       state.inCart = []
+      state.totalPrice = calculateTotalPrice(state.inCart)
     },
     addToCart (state, item) {
       state.inCart.push(item)
