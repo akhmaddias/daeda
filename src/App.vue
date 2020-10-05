@@ -68,6 +68,16 @@
         </span>
       </a>
     </div>
+    <div :class="{'modal':true, 'is-active': isModalActive}">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <div class="modal-card-head">
+          <p class="title has-text-danger">Заказы на сегодня принимаются до 12:00!</p>
+          <button class="delete" aria-label="close" @click="() => {isModalActive=false}"></button>
+        </div>
+      </div>
+      
+    </div>
   </div>
 </template>
 
@@ -79,6 +89,7 @@ export default {
   data () {
     return {
       isBurgerActive: false,
+      isModalActive: true,
       window: {
         width: 0,
         height: 0
