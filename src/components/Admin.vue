@@ -28,19 +28,26 @@
           </ul>
         </li>
       </ul>
-      <button class="button is-success is-small" @click="dbSaveCategory()">
-        Сохранить изменения
-      </button>
     </aside>
     <table
       class="table is-striped is-bordered is-narrow is-hoverable"
       v-if="menu.length > 0 && isToDayOrWeekActive('today')">
       <thead>
-        <tr><th>Название</th><th>Цена (тг)</th><th></th></tr>
+        <tr>
+          <th>Название</th><th>Цена (тг)</th>
+          <th>
+            <div class="field">
+              <div class="control">
+                <input v-model="nameFilter"
+                class="input is-small" type="text" placeholder="Фильтр">
+              </div>
+            </div>
+          </th>
+        </tr>
       </thead>
       <tfoot>
         <tr>
-          <th colspan="3"></th>
+          <th colspan="2"></th>
           <th style="text-align: center">
             <button class="button is-info is-small" @click="openModal(null)">
               Добавить новое блюдо
@@ -71,34 +78,67 @@
       class="table is-striped is-bordered is-narrow is-hoverable"
       v-else>
       <thead>
-        <th>Название</th><th>День недели</th>
+        <th>
+          <div class="field">
+            <div class="control">
+              <input v-model="nameFilter"
+              class="input is-small" type="text" placeholder="Фильтр">
+            </div>
+          </div>
+        </th>
+        <th>
+          <div class="field is-grouped">
+            <div class="control">
+              <button class="button is-success is-small" @click="dbSaveCategory()">
+                Сохранить
+              </button>
+            </div>
+            <div class="control">
+              <button class="button is-danger is-small" @click="clearDaysSelection()">
+                Очистить
+              </button>
+            </div>
+          </div>
+        </th>
       </thead>
       <tbody>
         <tr v-for="item in selectedMenu"
             :key="item.name"
             :value="item">
           <td>{{ item.name }}</td>
-          <td style="text-align: center">
-            <label style="margin: 0 15px" class="checkbox">
-              <input v-model="item.monday" type="checkbox" :name="item.name">
-              Понедельник
-            </label>
-            <label style="margin: 0 15px" class="checkbox">
-              <input v-model="item.tuesday" type="checkbox" :name="item.name">
-              Вторник
-            </label>
-            <label style="margin: 0 15px" class="checkbox">
-              <input v-model="item.wednesday" type="checkbox" :name="item.name">
-              Среда
-            </label>
-            <label style="margin: 0 15px" class="checkbox">
-              <input v-model="item.thursday" type="checkbox" :name="item.name">
-              Четверг
-            </label>
-            <label style="margin: 0 15px" class="checkbox">
-              <input v-model="item.friday" type="checkbox" :name="item.name">
-              Пятница
-            </label>
+          <td>
+            <div class="field is-grouped">
+              <div class="control">
+                <label class="checkbox">
+                  <input v-model="item.monday" type="checkbox" :name="item.name">
+                  Понедельник
+                </label>
+              </div>
+              <div class="control">
+                <label class="checkbox">
+                  <input v-model="item.tuesday" type="checkbox" :name="item.name">
+                  Вторник
+                </label>
+              </div>
+              <div class="control">
+                <label class="checkbox">
+                  <input v-model="item.wednesday" type="checkbox" :name="item.name">
+                  Среда
+                </label>
+              </div>
+              <div class="control">
+                <label class="checkbox">
+                  <input v-model="item.thursday" type="checkbox" :name="item.name">
+                  Четверг
+                </label>
+              </div>
+              <div class="control">
+                <label class="checkbox">
+                  <input v-model="item.friday" type="checkbox" :name="item.name">
+                  Пятница
+                </label>
+              </div>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -210,6 +250,7 @@ function getInitialData () {
     categories: ["Салаты и закуски", "Первые блюда", "Вторые блюда", "Гарниры", "Выпечка", "Напитки на разлив"],
     isModalActive: false,
     originalName: null,
+    nameFilter: null,
     changingItem: getChangingItemFields(),
     changingMenu: [],
     menu: [],
@@ -237,10 +278,27 @@ export default {
       'user'
     ]),
     selectedMenu () {
-      return this.changingMenu.filter(i => i.category === this.activeCategory)
+      return this.changingMenu.filter(i => {
+        let isSameCategory = i.category === this.activeCategory
+        if (this.nameFilter) {
+          return isSameCategory && i.name.toLowerCase().includes(this.nameFilter.toLowerCase())
+        }
+        return isSameCategory
+      })
     }
   },
   methods: {
+    clearDaysSelection () {
+      this.changingMenu.forEach(item => {
+        if (item.category === this.activeCategory) {
+          item.monday = false
+          item.tuesday = false
+          item.wednesday = false
+          item.thursday = false
+          item.friday = false
+        }
+      })
+    },
     restrictChars ($event) {
       if ($event.charCode === 0 || /\d/.test(String.fromCharCode($event.charCode))) {
           return true
