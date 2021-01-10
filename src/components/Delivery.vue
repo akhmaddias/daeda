@@ -4,6 +4,9 @@
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
+            Наша точка: Ауезова, 37
+          </h1>
+          <h1 class="title">
             График работы доставки:
           </h1>
           <h2 class="subtitle">
@@ -20,7 +23,9 @@
           <h1 class="title">
             Оплата:
           </h1>
-          <h2 class="subtitle">Стоимость доставки в черте города 500/1000 тг.</h2>
+          <h2 class="subtitle">Доставка в радиусе 3 км - 500тг</h2>
+          <h2 class="subtitle">В радиусе 5 км - 700тг</h2>
+          <h2 class="subtitle">Больше 5 км - 1000тг</h2>
           <h2 class="subtitle">
             Точная цена доставки будет уточнена после оформления заказа
           </h2>

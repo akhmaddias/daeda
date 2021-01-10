@@ -70,12 +70,13 @@
     </div>
     <div :class="{'modal':true, 'is-active': isModalActive}">
       <div class="modal-background"></div>
-      <div class="modal-card">
-        <div class="modal-card-head">
-          <p class="title has-text-danger">Заказы на сегодня принимаются до 12:00!</p>
-          <button class="delete" aria-label="close" @click="() => {isModalActive=false}"></button>
-        </div>
-      </div>
+        <section class="modal-content">
+          <p class="has-text-danger">Заказы на сегодня принимаются до 12:00!</p>
+          <p class="has-text-danger">Минимальная сумма заказа - 3500 тг</p>
+          <p class="has-text-danger">Стоимость доставки смотрите в разделе "Доставка"</p>
+          <p class="has-text-danger">Стоимость доставки при заказе от 8000 тг - БЕСПЛАТНО (в пределах черты города)</p>
+        </section>
+        <button class="modal-close is-large" aria-label="close" @click="() => {isModalActive=false}"></button>
     </div>
   </div>
 </template>
