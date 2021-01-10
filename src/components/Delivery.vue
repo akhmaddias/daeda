@@ -4,7 +4,7 @@
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
-            Наша точка: Ауезова, 37
+            Наше местоположение: Ауезова, 37
           </h1>
           <h1 class="title">
             График работы доставки:
