@@ -247,7 +247,7 @@ function getInitialData () {
     fileName: null,
     todayOrWeek: 'today',
     activeCategory: 'Первые блюда',
-    categories: ["Салаты и закуски", "Первые блюда", "Вторые блюда", "Гарниры", "Выпечка", "Напитки на разлив"],
+    categories: ["Салаты и закуски", "Первые блюда", "Вторые блюда", "Гарниры", "Выпечка", "Напитки на разлив", "Соусы"],
     isModalActive: false,
     originalName: null,
     nameFilter: null,

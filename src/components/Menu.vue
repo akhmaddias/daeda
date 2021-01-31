@@ -86,7 +86,7 @@ import { mapState, mapMutations } from 'vuex'
 function getInitialData () {
   return {
     activeCategory: 'Салаты и закуски',
-    categories: ["Салаты и закуски", "Первые блюда", "Вторые блюда", "Гарниры", "Выпечка", "Напитки на разлив"],
+    categories: ["Салаты и закуски", "Первые блюда", "Вторые блюда", "Гарниры", "Выпечка", "Напитки на разлив", "Соусы"],
     menu: [],
     itemsOptions: [],
     selectedItems: [],
