@@ -37,12 +37,14 @@
                   Половина
                 </label>
               </div>
-              <div v-if="item.quantity > 0 && item.addons">
+              <div
+                v-if="(item.quantity > 0 || item.quantityHalf) && item.addons"
+                style="font-size: 15px; font-weight: 900; margin-left: 0">
                 <div
                   v-for="addon in item.addons"
                   :key="addon">
                   {{ addon }}
-                  <span class="has-text-link">
+                  <span style="float: right" class="has-text-link">
                     <a class="quantity-link" @click="decreaseQuantityAddon(addon, item)">-</a>
                     {{ displayAddonQuantity(addon, item) }}
                     <a class="quantity-link" @click="increaseQuantityAddon(addon, item)">+</a>
@@ -70,7 +72,8 @@
                     Половина
                   </label>
                 </div>
-                <div v-if="item.quantity > 0 && item.addons" style="font-size: 15px; margin-left: 0">
+                <div v-if="(item.quantity > 0 || item.quantityHalf) && item.addons"
+                     style="font-size: 15px; font-weight: 900; margin-left: 0">
                   <div
                     v-for="addon in item.addons"
                     :key="addon">
@@ -165,7 +168,9 @@ export default {
       return q > 0 ? { 'card': true, 'card-clicked': true } : { 'card': true, 'card-default': true }
     },
     displayAddonQuantity (addon, item) {
-      let itemInCart = this.inCart.find(i => i.name === item.name)
+      let itemInCart = this.inCart.find(i => {
+        return i.isHalf ? i.name === `${item.name} (Половина)` : i.name === item.name
+      })
       let selectedAddon = itemInCart.selectedAddons.find(i => i.name === addon)
       if (selectedAddon) {
         return selectedAddon.quantity
@@ -234,7 +239,9 @@ export default {
       }
     },
     increaseQuantityAddon (addonName, item) {
-      let index = this.inCart.findIndex(i => i.name === item.name)
+      let index = this.inCart.findIndex(i => {
+        return i.isHalf ? i.name === `${item.name} (Половина)` : i.name === item.name
+      })
       let itemToCart = { ...this.inCart[index] }
       this.changeAddonQuantity({
         item: itemToCart,
@@ -244,7 +251,9 @@ export default {
       })
     },
     decreaseQuantityAddon (addonName, item) {
-      let index = this.inCart.findIndex(i => i.name === item.name)
+      let index = this.inCart.findIndex(i => {
+        return i.isHalf ? i.name === `${item.name} (Половина)` : i.name === item.name
+      })
       let itemToCart = { ...this.inCart[index] }
       this.changeAddonQuantity({
         item: itemToCart,
