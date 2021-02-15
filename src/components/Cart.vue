@@ -26,7 +26,17 @@
             <tr v-for="item in inCart"
                 :key="item.name"
                 :value="item">
-              <td>{{ item.name }}</td>
+              <td>
+                {{ item.name }}
+                <br />
+                <strong>Гарниры:</strong>
+                <div style="font-size: 10px" v-for="addon in item.selectedAddons"
+                     :key="addon.name">
+                  <div v-if="addon.quantity > 0">
+                    {{ addon.name + ' ' + addon.quantity + ' шт. ' + addon.price * addon.quantity + ' тг.'}}
+                  </div>
+                </div>
+              </td>
               <td>{{ item.price }}</td>
               <td>
                 <div class="quantity">
@@ -82,7 +92,17 @@
                 <tr v-for="item in inCart"
                     :key="item.name"
                     :value="item">
-                  <td>{{ item.name }}</td>
+                  <td>
+                    {{ item.name }}
+                    <br />
+                    <strong v-if="item.selectedAddons && item.selectedAddons.length > 0">Гарниры:</strong>
+                    <div style="font-size: 10px" v-for="addon in item.selectedAddons"
+                        :key="addon.name">
+                      <div v-if="addon.quantity > 0">
+                        {{ addon.name + ' ' + addon.quantity + ' шт. ' + addon.price * addon.quantity + ' тг.'}}
+                      </div>
+                    </div>
+                  </td>
                   <td>{{ item.price }}</td>
                   <td>{{ item.quantity }}</td>
                   <td>{{ item.price * item.quantity }}</td>

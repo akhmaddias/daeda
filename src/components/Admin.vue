@@ -175,6 +175,25 @@
                 @keypress="restrictChars($event)">
             </div>
           </div>
+          <div v-if="activeCategory === 'Вторые блюда'" class="field">
+            <label class="label">Гарниры</label>
+            <div class="control">
+              <div class="control">
+                <label
+                  style="margin: 0 15px"
+                  class="checkbox"
+                  v-for="item in availableAddons"
+                  :key="item.name"
+                  :value="item">
+                  <input
+                    type="checkbox"
+                    :value="item.name"
+                    v-model="changingItem.addons">
+                  {{ item.name }}
+                </label>
+              </div>
+            </div>
+          </div>
           <div class="field file has-name">
             <label class="file-label">
               <input class="file-input"
@@ -229,6 +248,7 @@ import { mapGetters } from 'vuex'
 function getChangingItemFields () {
   return {
     name: 'Новое блюдо',
+    addons: [],
     category: null,
     priceFull: 0,
     priceHalf: null,
@@ -270,7 +290,12 @@ export default {
   },
   watch: {
     menu () {
-      this.changingMenu = [ ...this.menu ]
+      this.changingMenu = this.menu.map(i => {
+        if (i.addons) {
+          return i
+        }
+        return {...i, addons: []}
+      })
     }
   },
   computed: {
@@ -285,6 +310,9 @@ export default {
         }
         return isSameCategory
       })
+    },
+    availableAddons () {
+      return this.menu.filter(i => i.category === 'Гарниры')
     }
   },
   methods: {
@@ -328,6 +356,9 @@ export default {
         return `${item.priceFull}/${item.priceHalf}`
       }
       return item.priceFull
+    },
+    onAddonSelected ($event) {
+      console.log($event)
     },
     onFileSelected ($event) {
       this.isLoading = true

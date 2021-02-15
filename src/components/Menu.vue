@@ -18,7 +18,7 @@
             :key="item.name"
             :value="item"
             class="column is-auto">
-        <div class="card">
+        <div :class="cardClass(item)">
           <div v-if="!isScreenWidthMobile" class="card-image">
             <figure class="image is-1by1">
               <img :src="substituteImage(item.image)" alt="Фотографии нету">
@@ -36,6 +36,18 @@
                   <input v-model="item.isHalf" :value="true" type="radio" :name="item.name">
                   Половина
                 </label>
+              </div>
+              <div v-if="item.quantity > 0 && item.addons">
+                <div
+                  v-for="addon in item.addons"
+                  :key="addon">
+                  {{ addon }}
+                  <span class="has-text-link">
+                    <a class="quantity-link" @click="decreaseQuantityAddon(addon, item)">-</a>
+                    {{ displayAddonQuantity(addon, item) }}
+                    <a class="quantity-link" @click="increaseQuantityAddon(addon, item)">+</a>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -57,6 +69,18 @@
                     <input v-model="item.isHalf" :value="true" type="radio" :name="item.name">
                     Половина
                   </label>
+                </div>
+                <div v-if="item.quantity > 0 && item.addons" style="font-size: 12px">
+                  <div
+                    v-for="addon in item.addons"
+                    :key="addon">
+                    {{ addon }}
+                    <span class="has-text-link">
+                      <a class="quantity-link" @click="decreaseQuantityAddon(addon, item)">-</a>
+                      {{ displayAddonQuantity(addon, item) }}
+                      <a class="quantity-link" @click="increaseQuantityAddon(addon, item)">+</a>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -106,7 +130,8 @@ export default {
           ...item,
           'quantity': 0,
           'quantityHalf': 0,
-          'isHalf': false
+          'isHalf': false,
+          'selectedAddons': []
         }))
     }
   },
@@ -129,11 +154,24 @@ export default {
       'addToCart',
       'removeFromCart',
       'changeItemQuantity',
+      'changeAddonQuantity',
       'resetCart'
     ]),
     ...mapMutations('menu', [
       'setDayCount'
     ]),
+    cardClass (item) {
+      let q = item.isHalf ? item.quantityHalf : item.quantity
+      return q > 0 ? { 'card': true, 'card-clicked': true } : { 'card': true, 'card-default': true }
+    },
+    displayAddonQuantity (addon, item) {
+      let itemInCart = this.inCart.find(i => i.name === item.name)
+      let selectedAddon = itemInCart.selectedAddons.find(i => i.name === addon)
+      if (selectedAddon) {
+        return selectedAddon.quantity
+      }
+      return 0
+    },
     handleDaySwitch (day) {
       if (this.dayCount !== day) {
         this.resetCart()
@@ -195,6 +233,26 @@ export default {
         this.itemForCart(this.itemsOptions[index])
       }
     },
+    increaseQuantityAddon (addonName, item) {
+      let index = this.inCart.findIndex(i => i.name === item.name)
+      let itemToCart = { ...this.inCart[index] }
+      this.changeAddonQuantity({
+        item: itemToCart,
+        addonPrice: this.itemsOptions.find(item => item.name === addonName).priceFull,
+        addonName,
+        isIncrease: true
+      })
+    },
+    decreaseQuantityAddon (addonName, item) {
+      let index = this.inCart.findIndex(i => i.name === item.name)
+      let itemToCart = { ...this.inCart[index] }
+      this.changeAddonQuantity({
+        item: itemToCart,
+        addonPrice: this.itemsOptions.find(item => item.name === addonName).priceFull,
+        addonName,
+        isIncrease: false
+      })
+    },
     itemForCart (item) {
       let itemName = item.isHalf ? `${item.name} (Половина)` : item.name
       let isAdded = this.inCart.findIndex(i => ( i.name === itemName )) > -1
@@ -205,7 +263,8 @@ export default {
           isHalf: item.isHalf,
           name: itemName,
           price: item.isHalf ? item.priceHalf : item.priceFull,
-          quantity: quantity
+          quantity: quantity,
+          selectedAddons: []
         }
         this.addToCart(itemInfo)
       } else {
@@ -224,9 +283,14 @@ export default {
   .container {
     margin-top: 10px;
   }
-  .card {
+  .card-default {
     width: 256px;
     height: 435px;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-clicked {
+    width: 300px;
     display: flex;
     flex-direction: column;
   }
