@@ -30,7 +30,7 @@
                 {{ item.name }}
                 <br />
                 <strong>Гарниры:</strong>
-                <div style="font-size: 10px" v-for="addon in item.selectedAddons"
+                <div style="font-size: 14px" v-for="addon in item.selectedAddons"
                      :key="addon.name">
                   <div v-if="addon.quantity > 0">
                     {{ addon.name + ' ' + addon.quantity + ' шт. ' + addon.price * addon.quantity + ' тг.'}}
@@ -96,7 +96,7 @@
                     {{ item.name }}
                     <br />
                     <strong v-if="item.selectedAddons && item.selectedAddons.length > 0">Гарниры:</strong>
-                    <div style="font-size: 10px" v-for="addon in item.selectedAddons"
+                    <div style="font-size: 14px" v-for="addon in item.selectedAddons"
                         :key="addon.name">
                       <div v-if="addon.quantity > 0">
                         {{ addon.name + ' ' + addon.quantity + ' шт. ' + addon.price * addon.quantity + ' тг.'}}

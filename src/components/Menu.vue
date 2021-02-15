@@ -70,15 +70,15 @@
                     Половина
                   </label>
                 </div>
-                <div v-if="item.quantity > 0 && item.addons" style="font-size: 12px">
+                <div v-if="item.quantity > 0 && item.addons" style="font-size: 15px; margin-left: 0">
                   <div
                     v-for="addon in item.addons"
                     :key="addon">
                     {{ addon }}
-                    <span class="has-text-link">
-                      <a class="quantity-link" @click="decreaseQuantityAddon(addon, item)">-</a>
+                    <span style="float: right" class="has-text-link">
+                      <a style="margin: 0 5px" class="quantity-link" @click="decreaseQuantityAddon(addon, item)">-</a>
                       {{ displayAddonQuantity(addon, item) }}
-                      <a class="quantity-link" @click="increaseQuantityAddon(addon, item)">+</a>
+                      <a style="margin: 0 5px" class="quantity-link" @click="increaseQuantityAddon(addon, item)">+</a>
                     </span>
                   </div>
                 </div>
