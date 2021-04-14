@@ -5,6 +5,7 @@
         <a class="navbar-item logo" href="/">
           <img src="./assets/images/logo.png" width="56" height="56">
         </a>
+        <p class="navbar-item has-text-primary">Доставка обедов</p>
         <a role="button" :class="{'navbar-burger': true, 'burger': true, 'is-active': isBurgerActive}"
            aria-label="menu" aria-expanded="false" data-target="navbarBasicExample"
            @click="toggleBurger()">
@@ -68,11 +69,11 @@
         </span>
       </a>
     </div>
-    <div :class="{'modal':true, 'is-active': isModalActive}">
+    <div :class="{'modal':true, 'is-active': isModalActive}" v-if="deliveryTime">
       <div class="modal-background"></div>
         <div class="modal-card">
           <div class="modal-card-body">
-            <p class="has-text-primary">Заказы на сегодня принимаются до 12:00!</p>
+            <p class="has-text-primary">Заказы на сегодня принимаются до {{ deliveryTime.setTime }}!</p>
             <p class="has-text-primary">Минимальная сумма заказа - 3500 тг</p>
             <p class="has-text-primary">Стоимость доставки смотрите в разделе "Доставка"</p>
             <p class="has-text-primary">Стоимость доставки при заказе от 8000 тг - БЕСПЛАТНО (в пределах черты города)</p>
@@ -85,6 +86,7 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
+import { deliveryTimeRef } from '@/firebase.js'
 
 export default {
   name: 'App',
@@ -92,11 +94,15 @@ export default {
     return {
       isBurgerActive: false,
       isModalActive: true,
+      deliveryTime: null,
       window: {
         width: 0,
         height: 0
       }
     }
+  },
+  firebase: {
+    deliveryTime: deliveryTimeRef
   },
   created () {
     window.addEventListener('resize', this.handleResize)

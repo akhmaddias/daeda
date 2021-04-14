@@ -29,12 +29,63 @@
         </li>
       </ul>
     </aside>
-    <table
-      class="table is-striped is-bordered is-narrow is-hoverable"
-      v-if="menu.length > 0 && isToDayOrWeekActive('today')">
-      <thead>
-        <tr>
-          <th>Название</th><th>Цена (тг)</th>
+    <div style="display: flex; flex-direction: column; padding-left: 5px">
+      <label>
+        Время доставки
+      </label>
+      <div style="display: flex">
+        <input v-model="newDeliveryTime" style="margin-bottom: 10px" class="input" type="text">
+        <button class="button is-success" @click="dbSaveNewDeliveryTime">Сохранить</button>
+      </div>
+      <table
+        class="table is-striped is-bordered is-narrow is-hoverable"
+        v-if="menu.length > 0 && isToDayOrWeekActive('today')">
+        <thead>
+          <tr>
+            <th>Название</th><th>Цена (тг)</th>
+            <th>
+              <div class="field">
+                <div class="control">
+                  <input v-model="nameFilter"
+                  class="input is-small" type="text" placeholder="Фильтр">
+                </div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th colspan="2"></th>
+            <th style="text-align: center">
+              <button class="button is-info is-small" @click="openModal(null)">
+                Добавить новое блюдо
+              </button>
+            </th>
+          </tr>
+        </tfoot>
+        <tbody>
+          <tr v-for="item in selectedMenu"
+              :key="item.name"
+              :value="item">
+            <td>{{ item.name }}</td>
+            <td>{{ displayPrice(item) }}</td>
+            <td style="text-align: center">
+              <div class="table-buttons">
+                <button class="button is-info is-small" @click="openModal(item)">
+                  Изменить
+                </button>
+                <button class="button is-danger is-small" @click="deleteItem(item)">
+                  Удалить
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table
+        class="table is-striped is-bordered is-narrow is-hoverable"
+        v-else>
+        <thead>
           <th>
             <div class="field">
               <div class="control">
@@ -43,106 +94,64 @@
               </div>
             </div>
           </th>
-        </tr>
-      </thead>
-      <tfoot>
-        <tr>
-          <th colspan="2"></th>
-          <th style="text-align: center">
-            <button class="button is-info is-small" @click="openModal(null)">
-              Добавить новое блюдо
-            </button>
-          </th>
-        </tr>
-      </tfoot>
-      <tbody>
-        <tr v-for="item in selectedMenu"
-            :key="item.name"
-            :value="item">
-          <td>{{ item.name }}</td>
-          <td>{{ displayPrice(item) }}</td>
-          <td style="text-align: center">
-            <div class="table-buttons">
-              <button class="button is-info is-small" @click="openModal(item)">
-                Изменить
-              </button>
-              <button class="button is-danger is-small" @click="deleteItem(item)">
-                Удалить
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <table
-      class="table is-striped is-bordered is-narrow is-hoverable"
-      v-else>
-      <thead>
-        <th>
-          <div class="field">
-            <div class="control">
-              <input v-model="nameFilter"
-              class="input is-small" type="text" placeholder="Фильтр">
-            </div>
-          </div>
-        </th>
-        <th>
-          <div class="field is-grouped">
-            <div class="control">
-              <button class="button is-success is-small" @click="dbSaveCategory()">
-                Сохранить
-              </button>
-            </div>
-            <div class="control">
-              <button class="button is-danger is-small" @click="clearDaysSelection()">
-                Очистить
-              </button>
-            </div>
-          </div>
-        </th>
-      </thead>
-      <tbody>
-        <tr v-for="item in selectedMenu"
-            :key="item.name"
-            :value="item">
-          <td>{{ item.name }}</td>
-          <td>
+          <th>
             <div class="field is-grouped">
               <div class="control">
-                <label class="checkbox">
-                  <input v-model="item.monday" type="checkbox" :name="item.name">
-                  Понедельник
-                </label>
+                <button class="button is-success is-small" @click="dbSaveCategory()">
+                  Сохранить
+                </button>
               </div>
               <div class="control">
-                <label class="checkbox">
-                  <input v-model="item.tuesday" type="checkbox" :name="item.name">
-                  Вторник
-                </label>
-              </div>
-              <div class="control">
-                <label class="checkbox">
-                  <input v-model="item.wednesday" type="checkbox" :name="item.name">
-                  Среда
-                </label>
-              </div>
-              <div class="control">
-                <label class="checkbox">
-                  <input v-model="item.thursday" type="checkbox" :name="item.name">
-                  Четверг
-                </label>
-              </div>
-              <div class="control">
-                <label class="checkbox">
-                  <input v-model="item.friday" type="checkbox" :name="item.name">
-                  Пятница
-                </label>
+                <button class="button is-danger is-small" @click="clearDaysSelection()">
+                  Очистить
+                </button>
               </div>
             </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          </th>
+        </thead>
+        <tbody>
+          <tr v-for="item in selectedMenu"
+              :key="item.name"
+              :value="item">
+            <td>{{ item.name }}</td>
+            <td>
+              <div class="field is-grouped">
+                <div class="control">
+                  <label class="checkbox">
+                    <input v-model="item.monday" type="checkbox" :name="item.name">
+                    Понедельник
+                  </label>
+                </div>
+                <div class="control">
+                  <label class="checkbox">
+                    <input v-model="item.tuesday" type="checkbox" :name="item.name">
+                    Вторник
+                  </label>
+                </div>
+                <div class="control">
+                  <label class="checkbox">
+                    <input v-model="item.wednesday" type="checkbox" :name="item.name">
+                    Среда
+                  </label>
+                </div>
+                <div class="control">
+                  <label class="checkbox">
+                    <input v-model="item.thursday" type="checkbox" :name="item.name">
+                    Четверг
+                  </label>
+                </div>
+                <div class="control">
+                  <label class="checkbox">
+                    <input v-model="item.friday" type="checkbox" :name="item.name">
+                    Пятница
+                  </label>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <div :class="{ 'modal': true, 'is-active': isModalActive }">
       <div class="modal-background"></div>
       <div class="modal-card">
@@ -242,7 +251,7 @@
 </template>
 
 <script>
-import { menuRef, storage, db } from '@/firebase.js'
+import { menuRef, deliveryTimeRef, storage, db } from '@/firebase.js'
 import { mapGetters } from 'vuex'
 
 function getChangingItemFields () {
@@ -271,6 +280,8 @@ function getInitialData () {
     isModalActive: false,
     originalName: null,
     nameFilter: null,
+    newDeliveryTime: null,
+    deliveryTime: null,
     changingItem: getChangingItemFields(),
     changingMenu: [],
     menu: [],
@@ -281,7 +292,8 @@ export default {
   name: 'Admin',
   data: getInitialData,
   firebase: {
-    menu: menuRef
+    menu: menuRef,
+    deliveryTime: deliveryTimeRef,
   },
   created () {
     if (!this.user.loggedIn) {
@@ -296,6 +308,9 @@ export default {
         }
         return {...i, addons: []}
       })
+    },
+    deliveryTime () {
+      this.newDeliveryTime = this.deliveryTime.setTime
     }
   },
   computed: {
@@ -337,6 +352,11 @@ export default {
     dbSaveCategory () {
       db.ref('menu')
         .set(this.changingMenu)
+        .then(this.notifySuccess)
+    },
+    dbSaveNewDeliveryTime () {
+      db.ref('deliveryTime/setTime')
+        .set(this.newDeliveryTime)
         .then(this.notifySuccess)
     },
     isToDayOrWeekActive (val) {
@@ -419,9 +439,6 @@ export default {
   .container {
     display: flex;
     margin-top: 10px;
-  }
-  .table {
-    margin-left: 10px;
   }
   .table-buttons button {
     margin: 0 5px;
