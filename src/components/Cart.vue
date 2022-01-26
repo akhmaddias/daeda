@@ -2,6 +2,7 @@
   <div class="container">
     <div v-if="inCart.length > 0" >
       <div class="table-container">
+        <p class="has-text-primary">Минимальная сумма заказа - 3500 тг</p>
         <table class="table is-striped is-narrow is-hoverable is-fullwidth">
           <thead>
             <tr>
