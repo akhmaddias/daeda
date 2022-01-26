@@ -1,7 +1,7 @@
 <template>
   <div :class="{'container': true, 'is-fluid': !isScreenWidthMobile}">
     <div style="margin: 2rem auto">
-      <a class="button is-small" :class="{'is-primary': dayCount === 0}" @click="handleDaySwitch(0)">На сегодня</a>
+      <a v-if="domain=== 'menu.daeda.kz'" class="button is-small" :class="{'is-primary': dayCount === 0}" @click="handleDaySwitch(0)">На сегодня</a>
       <a class="button is-small" :class="{'is-primary': dayCount === 1}" @click="handleDaySwitch(1)">На завтра</a>
       </div>
     <div v-if="menu" class="tabs is-boxed is-small">
@@ -150,6 +150,9 @@ export default {
     },
     isScreenWidthMobile () {
       return window.screen.width < 768
+    },
+    domain () {
+      return window.location.host
     }
   },
   methods: {

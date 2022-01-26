@@ -1,6 +1,6 @@
 function getInitialState () {
   return {
-    dayCount: 0
+    dayCount: window.location.host === 'menu.daeda.kz' ? 0 : 1
   }
 }
 
