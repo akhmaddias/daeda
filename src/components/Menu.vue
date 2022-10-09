@@ -1,7 +1,13 @@
 <template>
   <div :class="{'container': true, 'is-fluid': !isScreenWidthMobile}">
     <div style="margin: 2rem auto">
-      <a v-if="domain=== 'menu.daeda.kz'" class="button is-small" :class="{'is-primary': dayCount === 0}" @click="handleDaySwitch(0)">На сегодня</a>
+      <a
+        v-if="domain=== 'menu.daeda.kz'"
+        class="button is-small"
+        :class="{'is-primary': dayCount === 0}"
+        @click="handleDaySwitch(0)">
+        На сегодня
+      </a>
       <a class="button is-small" :class="{'is-primary': dayCount === 1}" @click="handleDaySwitch(1)">На завтра</a>
       </div>
     <div v-if="menu" class="tabs is-boxed is-small">
@@ -192,6 +198,7 @@ export default {
       let day = now.getDay()
       if (day > 5) {
         day = 5
+        return item['friday']
       }
       return item[days[day - 1 + this.dayCount]]
     },
