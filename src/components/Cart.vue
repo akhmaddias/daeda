@@ -142,6 +142,14 @@
             <div v-if="!contactInfo.telephone" class="notification is-warning">
               Укажите номер телефона
             </div>
+            <div class="field">
+              <div class="control">
+                <label class="checkbox">
+                  <input v-model="isSendCheck" type="checkbox">
+                  Отправить чек на почту
+                </label>
+              </div>
+            </div>
           </section>
           <footer class="modal-card-foot">
             <button
@@ -168,6 +176,7 @@ export default {
       isOrderPlaced: false,
       isModalActive: false,
       isLoading: false,
+      isSendCheck: false,
       contactInfo: {
         name: null,
         address: null,
@@ -214,7 +223,8 @@ export default {
       return callable({
         orderInfo: this.inCart,
         contactInfo: this.contactInfo,
-        totalPrice: this.totalPrice
+        totalPrice: this.totalPrice,
+        isSendCheck: this.isSendCheck
       }).then(result => {
         this.isLoading = false
         this.isOrderPlaced = true
