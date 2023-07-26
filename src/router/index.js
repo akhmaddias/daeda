@@ -9,6 +9,7 @@ import Login from '@/components/Login'
 import About from '@/components/About'
 import Delivery from '@/components/Delivery'
 import MenuWeek from '@/components/menuWeek'
+import Corporate from '@/components/Corporate'
 
 Vue.use(Router)
 
@@ -57,6 +58,11 @@ const router = new Router({
       path: '/menu-week',
       name: 'MenuWeek',
       component: MenuWeek
+    },
+    {
+      path: '/korp-eda',
+      name: 'Corporate',
+      component: Corporate
     }
   ]
 })

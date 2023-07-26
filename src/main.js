@@ -8,11 +8,11 @@ import { rtdbPlugin } from 'vuefire'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCartPlus, faPlus, faMinus, faPhone, faShoppingCart,
   faEnvelope, faMapMarkerAlt, faTruck, faUtensils, faCheese, faTrash  } from '@fortawesome/free-solid-svg-icons'
-import { faInstagramSquare } from '@fortawesome/free-brands-svg-icons'
+import { faInstagramSquare, faTelegram, faWhatsapp, faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faCartPlus, faPlus, faMinus, faPhone, faShoppingCart, faEnvelope, faMapMarkerAlt,
-  faTruck, faUtensils, faCheese, faInstagramSquare, faTrash )
+  faTruck, faUtensils, faCheese, faInstagramSquare, faTrash, faTelegram, faWhatsapp, faInstagram)
  
 Vue.component('fa-icon', FontAwesomeIcon)
 

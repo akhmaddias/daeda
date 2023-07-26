@@ -32,6 +32,7 @@
           <a class="navbar-item" href="#/menu-week" @click="toggleBurger()">
             Меню на неделю
           </a>
+          <a class="navbar-item" href="#/korp-eda" @click="toggleBurger()">Корпоративным Клиентам</a>
           <div class="navbar-item">
             <a href="tel:+77085293662" style="display: flex">
               <span class="icon">
@@ -69,7 +70,7 @@
         </span>
       </a>
     </div>
-    <div :class="{'modal':true, 'is-active': isModalActive}" v-if="deliveryTime">
+    <!-- <div :class="{'modal':true, 'is-active': isModalActive}" v-if="deliveryTime">
       <div class="modal-background"></div>
         <div class="modal-card">
           <div class="modal-card-body">
@@ -82,7 +83,7 @@
           </div>
         </div>
         <button class="modal-close is-large" aria-label="close" @click="() => {isModalActive=false}"></button>
-    </div>
+    </div> -->
   </div>
 </template>
 

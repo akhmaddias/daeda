@@ -196,7 +196,7 @@ export default {
       let days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']
       let now = new Date()
       let day = now.getDay()
-      if (day > 5) {
+      if (day >= 5) {
         day = 5
         return item['friday']
       }
