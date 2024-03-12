@@ -5,8 +5,8 @@ const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey(functions.config().sendgrid.key)
 exports.genericEmail = functions.https.onCall(async (data, context) => {
   const { orderInfo, contactInfo, totalPrice, isSendCheck } = data
-  const sendTo = isSendCheck ? ['info@daeda.kz', 'danik_94d@mail.ru', contactInfo.email] :
-  ['info@daeda.kz', 'danik_94d@mail.ru']
+  const sendTo = isSendCheck ? ['info@daeda.kz', 'danik_94d@mail.ru', 'manager.daeda@mail.ru', contactInfo.email] :
+  ['info@daeda.kz', 'danik_94d@mail.ru', 'manager.daeda@mail.ru']
   const msg = {
       to: sendTo,
       from: 'info@daeda.kz',
