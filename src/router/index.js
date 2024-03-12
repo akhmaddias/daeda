@@ -10,6 +10,7 @@ import About from '@/components/About'
 import Delivery from '@/components/Delivery'
 import MenuWeek from '@/components/menuWeek'
 import Corporate from '@/components/Corporate'
+import Snacks from '@/components/Snacks'
 
 Vue.use(Router)
 
@@ -63,6 +64,11 @@ const router = new Router({
       path: '/korp-eda',
       name: 'Corporate',
       component: Corporate
+    },
+    {
+      path: '/snacks',
+      name: 'Snacks',
+      component: Snacks
     }
   ]
 })

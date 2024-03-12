@@ -33,6 +33,7 @@
             Меню на неделю
           </a>
           <a class="navbar-item" href="#/korp-eda" @click="toggleBurger()">Корпоративным Клиентам</a>
+          <a class="navbar-item" href="#/snacks" @click="toggleBurger()">Снеки</a>
           <div class="navbar-item">
             <a href="tel:+77085293662" style="display: flex">
               <span class="icon">
