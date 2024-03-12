@@ -35,7 +35,12 @@
       </label>
       <div style="display: flex">
         <input v-model="newDeliveryTime" style="margin-bottom: 10px" class="input" type="text">
-        <button class="button is-success" @click="dbSaveNewDeliveryTime">Сохранить</button>
+        <button
+          class="button is-success"
+          :disabled="!isSuperUser"
+          @click="dbSaveNewDeliveryTime">
+          Сохранить
+        </button>
       </div>
       <table
         class="table is-striped is-bordered is-narrow is-hoverable"
@@ -74,7 +79,10 @@
                 <button class="button is-info is-small" @click="openModal(item)">
                   Изменить
                 </button>
-                <button class="button is-danger is-small" @click="deleteItem(item)">
+                <button 
+                  :disabled="!isSuperUser"
+                  class="button is-danger is-small"
+                  @click="deleteItem(item)">
                   Удалить
                 </button>
               </div>
@@ -163,13 +171,17 @@
           <div class="field">
             <label class="label">Название</label>
             <div class="control">
-              <input v-model="changingItem.name" class="input" type="text">
+              <input
+                :disabled="!isSuperUser"
+                v-model="changingItem.name" class="input" type="text">
             </div>
           </div>
           <div class="field">
             <label class="label">Цена (полная порция)</label>
             <div class="control">
-              <input class="input"
+              <input
+                class="input"
+                :disabled="!isSuperUser"
                 type="text"
                 v-model.number="changingItem.priceFull"
                 @keypress="restrictChars($event)">
@@ -178,7 +190,9 @@
           <div class="field">
             <label class="label">Цена (половина порция)</label>
             <div class="control">
-              <input class="input"
+              <input
+                class="input"
+                :disabled="!isSuperUser"
                 type="text"
                 v-model.number="changingItem.priceHalf"
                 @keypress="restrictChars($event)">
@@ -205,7 +219,9 @@
           </div>
           <div class="field file has-name">
             <label class="file-label">
-              <input class="file-input"
+              <input
+                :disabled="!isSuperUser"
+                class="file-input"
                 type="file"
                 @change="onFileSelected($event)">
                 <span class="file-cta">Выберите фотографию</span>
@@ -328,6 +344,13 @@ export default {
     },
     availableAddons () {
       return this.menu.filter(i => i.category === 'Гарниры')
+    },
+    isSuperUser () {
+      if (this.user && this.user.data) {
+        return this.user.data.email === 'info@daeda.kz' ||
+          this.user.data.email === '2ahmad86@gmail.com'
+      }
+      return false
     }
   },
   methods: {
